@@ -7,31 +7,29 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: GetIt.I.allReady(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            Future.delayed(Duration(seconds: 2), () {
-              Navigator.pushReplacementNamed(context, RouteName.LICENSES);
-            });
-            return Scaffold(
-              body: Container(
+    return Scaffold(
+      body: FutureBuilder(
+          future: GetIt.I.allReady(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              Future.delayed(Duration(seconds: 2), () {
+                Navigator.pushReplacementNamed(context, RouteName.LICENSES);
+              });
+              return Container(
                 decoration: BoxDecoration(color: Colors.yellow),
-              ),
-            );
-          } else {
-            return Scaffold(
-              body: Container(
+              );
+            } else {
+              return Container(
                 decoration: BoxDecoration(color: Colors.yellow),
                 alignment: Alignment.center,
                 child: Container(
-                  width: 30,
-                  height: 30,
+                  width: 50,
+                  height: 50,
                   child: CircularProgressIndicator(),
                 ),
-              ),
-            );
-          }
-        });
+              );
+            }
+          }),
+    );
   }
 }

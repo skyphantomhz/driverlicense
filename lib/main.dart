@@ -1,10 +1,8 @@
-import 'package:drives_licence/data/localsource/dao/licensedao.dart';
 import 'package:drives_licence/ui/global.dart';
 import 'package:drives_licence/ui/licensespage/license_page.dart';
 import 'package:drives_licence/ui/questionpage/question_page.dart';
 import 'package:drives_licence/ui/splashpage.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 
 import 'di/appcomponent.dart';
 
@@ -25,7 +23,6 @@ class MyApp extends StatelessWidget {
       routes: {
         RouteName.SPLASH: (context) => SplashPage(),
         RouteName.LICENSES: (context) => LicensesPage(),
-        // RouteName.QUESTIONS: (context) => QuestionPage(),
         RouteName.HOME: (context) =>
             MyHomePage(title: 'Flutter Demo Home Page'),
       },
@@ -50,8 +47,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
-  LicenseDao licenseDao = GetIt.I<LicenseDao>();
 
   void _incrementCounter() {
     setState(() {
