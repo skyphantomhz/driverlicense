@@ -109,4 +109,20 @@ class Zquestion {
     data['ZQUESTIONCONTENT'] = this.questionContent;
     return data;
   }
+
+  String getOption(int index) {
+    switch (index) {
+      case 0:
+        return option1;
+        break;
+      case 1:
+        return option2;
+        break;
+      case 2:
+        return option3;
+        break;
+      default:
+        return option4;
+    }
+  }
 }

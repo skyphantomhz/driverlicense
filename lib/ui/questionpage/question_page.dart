@@ -1,4 +1,5 @@
 import 'package:drives_licence/model/zquestion.dart';
+import 'package:drives_licence/ui/questionpage/question/question.dart';
 import 'package:drives_licence/ui/questionpage/question_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -34,32 +35,42 @@ class _QuestionPageState extends State<QuestionPage> {
                 child: Text("Empty data"),
               );
             } else {
-              return ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (_, index) {
-                  final item = data[index];
-                  return Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        print("${item.questionType}");
-                      },
-                      child: ListTile(
-                          leading: Container(
-                            width: 30,
-                            alignment: Alignment.centerLeft,
-                            child: Text(item.questionType.toString(),
-                                style: Theme.of(context).textTheme.body2),
-                          ),
-                          title: Text(item.questionContent,
-                              style: Theme.of(context).textTheme.body1)),
-                    ),
-                  );
-                },
+              return Container(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: PageView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    return Question(question: data[index]);
+                  },
+                ),
               );
+
+              //  ListView.builder(
+              //   itemCount: data.length,
+              //   itemBuilder: (_, index) {
+              //     final item = data[index];
+              //     return Card(
+              //       elevation: 2,
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.all(Radius.circular(4)),
+              //       ),
+              //       child: InkWell(
+              //         onTap: () {
+              //           print("${item.questionType}");
+              //         },
+              //         child: ListTile(
+              //             leading: Container(
+              //               width: 30,
+              //               alignment: Alignment.centerLeft,
+              //               child: Text(item.questionType.toString(),
+              //                   style: Theme.of(context).textTheme.body2),
+              //             ),
+              //             title: Text(item.questionContent,
+              //                 style: Theme.of(context).textTheme.body1)),
+              //       ),
+              //     );
+              //   },
+              // );
             }
           },
         ),
