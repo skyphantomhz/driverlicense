@@ -24,6 +24,7 @@ class Zquestion {
   String option3;
   String option4;
   String questionContent;
+  Set<int> answerSubmited;
 
   Zquestion(
       {this.pk,
@@ -124,5 +125,12 @@ class Zquestion {
       default:
         return option4;
     }
+  }
+
+  bool isCorrect() {
+    answerSubmited.toList().sort((a, b) => a.compareTo(b));
+    final answerSubmitedStr =
+        answerSubmited.map((answer) => answer.toString()).join(',');
+    return answerSubmitedStr == answers;
   }
 }

@@ -29,7 +29,7 @@ class _PreviewPageState extends State<PreviewPage> {
       ),
       body: SafeArea(
         child: Center(
-          child: Text("Xin chao PreviewPage"),
+          child: Text(""),
         ),
       ),
     );

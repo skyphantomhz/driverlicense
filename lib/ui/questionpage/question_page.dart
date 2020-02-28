@@ -19,6 +19,7 @@ class QuestionPage extends StatefulWidget {
 class _QuestionPageState extends State<QuestionPage> {
   QuestionBloc _questionBloc;
   PageController _controller;
+  List<Zquestion> questions;
 
   @override
   void initState() {
@@ -62,8 +63,8 @@ class _QuestionPageState extends State<QuestionPage> {
         child: StreamBuilder<List<Zquestion>>(
           stream: _questionBloc.questions,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            List<Zquestion> data = snapshot.data;
-            if (data == null) {
+            questions = snapshot.data;
+            if (questions == null) {
               return Container(
                 alignment: Alignment.center,
                 child: Text("Empty data"),
@@ -76,10 +77,13 @@ class _QuestionPageState extends State<QuestionPage> {
                     Expanded(
                       child: PageView.builder(
                         physics: BouncingScrollPhysics(),
-                        itemCount: data.length,
+                        itemCount: questions.length,
                         controller: _controller,
+                        onPageChanged: (index) {
+                          print("on page changed");
+                        },
                         itemBuilder: (context, index) {
-                          return Question(question: data[index]);
+                          return Question(question: questions[index]);
                         },
                       ),
                     ),
@@ -118,7 +122,8 @@ class _QuestionPageState extends State<QuestionPage> {
             color: Theme.of(context).colorScheme.primary,
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.pushReplacementNamed(context, RouteName.PREVIEW);
+              Navigator.pushReplacementNamed(context, RouteName.PREVIEW,
+                  arguments: questions);
             },
             child: Text(
               'Nộp bài',

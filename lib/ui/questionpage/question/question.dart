@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 
 class Question extends StatefulWidget {
   final Zquestion question;
-  Set<int> optionSelected = Set<int>();
 
-  Question({@required this.question});
+  Question({@required this.question}) {
+    question.answerSubmited = Set();
+  }
+
+  Set<int> get answerSubmitted => question.answerSubmited;
 
   @override
   _QuestionState createState() => _QuestionState();
@@ -116,14 +119,14 @@ class _QuestionState extends State<Question> {
   }
 
   bool isOptionSelected(int indexed) {
-    return widget.optionSelected.contains(indexed);
+    return widget.answerSubmitted.contains(indexed);
   }
 
   void selectOption(int indexed) {
-    widget.optionSelected.add(indexed);
+    widget.answerSubmitted.add(indexed);
   }
 
   void unselectOption(int indexed) {
-    widget.optionSelected.remove(indexed);
+    widget.answerSubmitted.remove(indexed);
   }
 }
