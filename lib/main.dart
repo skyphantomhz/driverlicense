@@ -1,5 +1,6 @@
 import 'package:drives_licence/ui/global.dart';
 import 'package:drives_licence/ui/licensespage/license_page.dart';
+import 'package:drives_licence/ui/previewpage/preview_page.dart';
 import 'package:drives_licence/ui/questionpage/question_page.dart';
 import 'package:drives_licence/ui/splashpage.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,10 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         if (settings?.name == RouteName.QUESTIONS) {
           return MaterialPageRoute(
-              builder: (ctx) => QuestionPage(licenseName: settings.arguments));
+              builder: (ctx) => QuestionPage(license: settings.arguments));
+        } else if (settings?.name == RouteName.PREVIEW) {
+          return MaterialPageRoute(
+              builder: (ctx) => PreviewPage(questions: settings.arguments));
         }
       },
     );

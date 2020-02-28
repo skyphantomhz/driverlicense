@@ -25,7 +25,7 @@ class _QuestionState extends State<Question> {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,6 +37,7 @@ class _QuestionState extends State<Question> {
                 style: Theme.of(context).textTheme.body2,
               ),
             ),
+            buildImageQuestion(widget.question.image),
             Column(
               children: _buildOptions(),
             )
@@ -46,14 +47,15 @@ class _QuestionState extends State<Question> {
     );
   }
 
-  List<Widget> _buildContenCard() {
-    final widgets = List<Widget>();
-    widgets.add(Text(
-      widget.question.questionContent,
-      style: Theme.of(context).textTheme.body2,
-    ));
-    widgets.addAll(_buildOptions());
-    return widgets;
+  Widget buildImageQuestion(String image) {
+    if (image?.isEmpty ?? true) {
+      return Container();
+    } else {
+      final fileNameConverted = image.replaceFirst("jpg", "webp");
+      return Expanded(
+        child: Image.asset("assets/imageapp/$fileNameConverted"),
+      );
+    }
   }
 
   List<Widget> _buildOptions() {

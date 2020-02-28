@@ -42,7 +42,7 @@ class _LicensesPageState extends State<LicensesPage> {
                   ),
                   child: InkWell(
                     onTap: () {
-                      navigateToQuestionPage(item.name);
+                      navigateToQuestionPage(item);
                     },
                     child: ListTile(
                         leading: Container(
@@ -63,8 +63,8 @@ class _LicensesPageState extends State<LicensesPage> {
     );
   }
 
-  void navigateToQuestionPage(String licenseName) {
-    Navigator.pushNamed(context, RouteName.QUESTIONS, arguments: licenseName);
+  void navigateToQuestionPage(Zlicense license) {
+    Navigator.pushNamed(context, RouteName.QUESTIONS, arguments: license);
   }
 
   @override

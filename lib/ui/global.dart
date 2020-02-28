@@ -4,4 +4,5 @@ class RouteName{
   static final HOME = "/home";
   static final LICENSES = "/licenses";
   static final QUESTIONS = "/questions";
+  static final PREVIEW = "/preview";
 }
