@@ -128,9 +128,9 @@ class Zquestion {
   }
 
   bool isCorrect() {
-    answerSubmited.toList().sort((a, b) => a.compareTo(b));
+    answerSubmited?.toList()?.sort((a, b) => a.compareTo(b));
     final answerSubmitedStr =
-        answerSubmited.map((answer) => answer.toString()).join(',');
-    return answerSubmitedStr == answers;
+        answerSubmited?.map((answer) => answer.toString())?.join(',');
+    return answerSubmitedStr != null && answerSubmitedStr == answers;
   }
 }

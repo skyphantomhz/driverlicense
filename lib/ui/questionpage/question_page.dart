@@ -80,7 +80,7 @@ class _QuestionPageState extends State<QuestionPage> {
                         itemCount: questions.length,
                         controller: _controller,
                         onPageChanged: (index) {
-                          print("on page changed");
+                          print("The answer at $index is ${questions[index].answers}");
                         },
                         itemBuilder: (context, index) {
                           return Question(question: questions[index]);
