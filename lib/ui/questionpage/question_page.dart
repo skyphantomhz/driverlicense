@@ -1,4 +1,3 @@
-import 'package:drives_licence/model/zlicense.dart';
 import 'package:drives_licence/model/zquestion.dart';
 import 'package:drives_licence/ui/global.dart';
 import 'package:drives_licence/ui/questionpage/question/question.dart';
@@ -8,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class QuestionPage extends StatefulWidget {
-  QuestionPage({Key key, this.license}) : super(key: key);
+  QuestionPage({Key key, this.questions}) : super(key: key);
 
-  final Zlicense license;
+  final List<Zquestion> questions;
 
   @override
   _QuestionPageState createState() => _QuestionPageState();
@@ -19,11 +18,10 @@ class QuestionPage extends StatefulWidget {
 class _QuestionPageState extends State<QuestionPage> {
   QuestionBloc _questionBloc;
   PageController _controller;
-  List<Zquestion> questions;
 
   @override
   void initState() {
-    _questionBloc = QuestionBloc(widget.license);
+    _questionBloc = QuestionBloc();
     _controller = PageController();
     _questionBloc.viewState.listen((state) {
       if (state is EventState && state.event == Event.TIME_OUT) {
@@ -57,8 +55,11 @@ class _QuestionPageState extends State<QuestionPage> {
               stream: _questionBloc.pageState,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 return Text(
-                  snapshot?.data??"",
-                  style: Theme.of(context).textTheme.title.copyWith(color: Colors.white),
+                  snapshot?.data ?? "",
+                  style: Theme.of(context)
+                      .textTheme
+                      .title
+                      .copyWith(color: Colors.white),
                 );
               },
             ),
@@ -72,40 +73,27 @@ class _QuestionPageState extends State<QuestionPage> {
         ],
       ),
       body: SafeArea(
-        child: StreamBuilder<List<Zquestion>>(
-          stream: _questionBloc.questions,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            questions = snapshot.data;
-            if (questions == null) {
-              return Container(
-                alignment: Alignment.center,
-                child: Text("Empty data"),
-              );
-            } else {
-              return Container(
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: PageView.builder(
-                        physics: BouncingScrollPhysics(),
-                        itemCount: questions.length,
-                        controller: _controller,
-                        onPageChanged: (index) {
-                          _questionBloc.sendPageState(index);
-                          print(
-                              "The answer at $index is ${questions[index].answers}");
-                        },
-                        itemBuilder: (context, index) {
-                          return Question(question: questions[index]);
-                        },
-                      ),
-                    ),
-                  ],
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.7,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: PageView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: widget.questions.length,
+                  controller: _controller,
+                  onPageChanged: (index) {
+                    _questionBloc.sendPageState(index);
+                    print(
+                        "The answer at $index is ${widget.questions[index].answers}");
+                  },
+                  itemBuilder: (context, index) {
+                    return Question(question: widget.questions[index]);
+                  },
                 ),
-              );
-            }
-          },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -137,7 +125,7 @@ class _QuestionPageState extends State<QuestionPage> {
             onPressed: () {
               Navigator.of(context).pop();
               Navigator.pushReplacementNamed(context, RouteName.PREVIEW,
-                  arguments: questions);
+                  arguments: widget.questions);
             },
             child: Text(
               'Nộp bài',

@@ -1,25 +1,30 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:drives_licence/data/service/question_service.dart';
 import 'package:drives_licence/model/zlicense.dart';
-import 'package:drives_licence/model/zquestion.dart';
+import 'package:drives_licence/ui/global.dart';
 import 'package:drives_licence/ui/questionpage/viewstate.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QuestionBloc {
-  QuestionService questionService = GetIt.I<QuestionService>();
-  final Zlicense license;
-  QuestionBloc(this.license) {
-    getQuestions(license);
+  Zlicense _license;
+  JsonDecoder _decoder = GetIt.I<JsonDecoder>();
+  QuestionBloc() {
+    _initView();
+  }
+
+  void _initView() async {
+    final preferrence = await SharedPreferences.getInstance();
+    final licenseJson = await preferrence.get(PreferrenceKey.LICENSE);
+    _license = Zlicense.fromJson(_decoder.convert(licenseJson));
+    startTimer(_license.duration.round());
 
     Future.delayed(Duration(milliseconds: 500), () {
       sendPageState(0);
     });
   }
-
-  PublishSubject<List<Zquestion>> _questions = PublishSubject();
-  Stream<List<Zquestion>> get questions => _questions.stream;
 
   PublishSubject<String> _time = PublishSubject();
   Stream<String> get time => _time.stream;
@@ -29,12 +34,6 @@ class QuestionBloc {
 
   PublishSubject<String> _pageState = PublishSubject();
   Stream<String> get pageState => _pageState.stream;
-
-  void getQuestions(Zlicense license) async {
-    final questions = await questionService.getQuestion(license.name);
-    _questions.sink.add(questions);
-    startTimer(license.duration.round());
-  }
 
   Timer _timer;
   bool counting = true;
@@ -59,7 +58,7 @@ class QuestionBloc {
   }
 
   void sendPageState(int index) {
-    _pageState.sink.add("${++index}/${license.numberOfQuestion}");
+    _pageState.sink.add("${++index}/${_license?.numberOfQuestion??0}");
   }
 
   void pauseTimer() {
@@ -71,7 +70,6 @@ class QuestionBloc {
   }
 
   void dispose() {
-    _questions.close();
     _time.close();
     _viewState.close();
     _pageState.close();

@@ -12,6 +12,7 @@ GetIt getIt = GetIt.instance;
 void setupLocator() {
   getIt.registerSingletonAsync<Database>(() => getDatabase());
   getIt.registerLazySingleton<JsonDecoder>(() => JsonDecoder());
+  getIt.registerLazySingleton<JsonEncoder>(() => JsonEncoder());
 
   getIt.registerLazySingleton<LicenseDao>(() => LicenseDao());
   getIt.registerLazySingleton<QuestionDao>(() => QuestionDao());

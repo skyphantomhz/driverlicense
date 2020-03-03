@@ -3,6 +3,8 @@ import 'package:drives_licence/ui/licensespage/license_page.dart';
 import 'package:drives_licence/ui/previewpage/preview_page.dart';
 import 'package:drives_licence/ui/questionpage/question_page.dart';
 import 'package:drives_licence/ui/splashpage.dart';
+import 'package:drives_licence/ui/testgenerator/test_generator_bloc.dart';
+import 'package:drives_licence/ui/testgenerator/test_generator_page.dart';
 import 'package:flutter/material.dart';
 
 import 'di/appcomponent.dart';
@@ -24,13 +26,14 @@ class MyApp extends StatelessWidget {
       routes: {
         RouteName.SPLASH: (context) => SplashPage(),
         RouteName.LICENSES: (context) => LicensesPage(),
+        RouteName.TEST_GENERATOR: (context) => TestGeneratorPage(),
         RouteName.HOME: (context) =>
             MyHomePage(title: 'Flutter Demo Home Page'),
       },
       onGenerateRoute: (settings) {
         if (settings?.name == RouteName.QUESTIONS) {
           return MaterialPageRoute(
-              builder: (ctx) => QuestionPage(license: settings.arguments));
+              builder: (ctx) => QuestionPage(questions: settings.arguments));
         } else if (settings?.name == RouteName.PREVIEW) {
           return MaterialPageRoute(
               builder: (ctx) => PreviewPage(questions: settings.arguments));
