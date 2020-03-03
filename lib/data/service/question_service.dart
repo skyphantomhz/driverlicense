@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:drives_licence/data/localsource/dao/questiondao.dart';
 import 'package:drives_licence/model/zlicense.dart';
@@ -12,12 +13,28 @@ class QuestionService {
   Future<List<Zquestion>> getQuestion(Zlicense license) async {
     final completer = Completer<List<Zquestion>>();
     final questions = List<Zquestion>();
+    final optionalQuestions = List<Zquestion>();
+    int indexOptionalQuestion = 0;
     final questionTypes = await getNumberQuestionPerType(license.pk);
     questionTypes.forEach((questionType) async {
-      final questionOfType = await getQuestionsPerType(
-          license.name, questionType.questionType, questionType.count);
-      questions.addAll(questionOfType);
+      if (questionType.count == 1000) {
+        indexOptionalQuestion = questionTypes.indexOf(questionType);
+        final questionOfType = await getQuestionsPerType(
+            license.name, questionType.questionType, 1);
+        optionalQuestions.addAll(questionOfType);
+      } else {
+        final questionOfType = await getQuestionsPerType(
+            license.name, questionType.questionType, questionType.count);
+        questions.addAll(questionOfType);
+      }
+
       if (questionTypes.last == questionType) {
+        if (indexOptionalQuestion != 0 && optionalQuestions.length >= 2) {
+          final randomIndex = Random().nextInt(optionalQuestions.length - 1);
+          questions.insert(
+              indexOptionalQuestion, optionalQuestions[randomIndex]);
+          indexOptionalQuestion = 0;
+        }
         completer.complete(questions);
       }
     });

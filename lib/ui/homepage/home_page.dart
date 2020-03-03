@@ -28,6 +28,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: StreamBuilder<String>(
+          stream: _homeBloc.title,
+          builder: (context, snapshot) {
+            return Text(snapshot?.data??"");
+          }
+        ),
+        actions: <Widget>[
+        IconButton(icon: Icon(FontAwesomeIcons.cog), onPressed: (){
+          Navigator.of(context).pushNamed(RouteName.LICENSES);
+        },)
+      ],),
       body: SafeArea(
         child: GridView(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

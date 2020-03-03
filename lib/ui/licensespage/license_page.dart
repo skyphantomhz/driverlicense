@@ -73,7 +73,7 @@ class _LicensesPageState extends State<LicensesPage> {
   void setListener() {
     _licenseBloc.eventState.listen((data) {
       if (data == Event.HOME) {
-        Navigator.of(context).pushReplacementNamed(RouteName.HOME);
+        Navigator.of(context).pushNamedAndRemoveUntil(RouteName.HOME,  ModalRoute.withName(RouteName.ROOT));
       }
     });
   }

@@ -12,12 +12,11 @@ class PreviewPage extends StatefulWidget {
 }
 
 class _PreviewPageState extends State<PreviewPage> {
-
   PreviewBloc previewBloc;
 
   @override
   void initState() {
-    previewBloc = PreviewBloc()..calculateCorrectAnswers(widget.questions);
+    previewBloc = PreviewBloc(widget.questions);
     super.initState();
   }
 
@@ -38,21 +37,39 @@ class _PreviewPageState extends State<PreviewPage> {
           IconButton(
             icon: Icon(FontAwesomeIcons.share),
             onPressed: () {
-              previewBloc.calculateCorrectAnswers(widget.questions);
+              
             },
           )
         ],
       ),
       body: SafeArea(
         child: Center(
-          child: StreamBuilder<String>(
-            stream: previewBloc.correctAnswers,
-            initialData: 'Empty data',
-            builder: (BuildContext context,AsyncSnapshot snapshot) {
-              final message = snapshot?.data ?? "NULL";
-              return Text(message);
-            }
-          ),
+          child: StreamBuilder<bool>(
+              stream: previewBloc.pass,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                final pass = snapshot?.data;
+                switch (pass) {
+                  case true:
+                    return Text("Đạt",
+                        style: Theme.of(context)
+                            .textTheme
+                            .display2
+                            .copyWith(color: Colors.green));
+                    break;
+                  case false:
+                    return Text("Không Đạt",
+                        style: Theme.of(context)
+                            .textTheme
+                            .display2
+                            .copyWith(color: Colors.red));
+                    break;
+                  default:
+                    return Container(
+                        width: 50,
+                        height: 50,
+                        child: CircularProgressIndicator());
+                }
+              }),
         ),
       ),
     );
