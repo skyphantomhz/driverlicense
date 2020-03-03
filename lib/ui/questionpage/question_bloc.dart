@@ -9,9 +9,13 @@ import 'package:rxdart/rxdart.dart';
 
 class QuestionBloc {
   QuestionService questionService = GetIt.I<QuestionService>();
-
-  QuestionBloc(Zlicense license) {
+  final Zlicense license;
+  QuestionBloc(this.license) {
     getQuestions(license);
+
+    Future.delayed(Duration(milliseconds: 500), () {
+      sendPageState(0);
+    });
   }
 
   PublishSubject<List<Zquestion>> _questions = PublishSubject();
@@ -22,6 +26,9 @@ class QuestionBloc {
 
   PublishSubject<ViewState> _viewState = PublishSubject();
   Stream<ViewState> get viewState => _viewState.stream;
+
+  PublishSubject<String> _pageState = PublishSubject();
+  Stream<String> get pageState => _pageState.stream;
 
   void getQuestions(Zlicense license) async {
     final questions = await questionService.getQuestion(license.name);
@@ -51,6 +58,10 @@ class QuestionBloc {
     });
   }
 
+  void sendPageState(int index) {
+    _pageState.sink.add("${++index}/${license.numberOfQuestion}");
+  }
+
   void pauseTimer() {
     counting = false;
   }
@@ -63,6 +74,7 @@ class QuestionBloc {
     _questions.close();
     _time.close();
     _viewState.close();
+    _pageState.close();
     _timer.cancel();
   }
 }

@@ -30,6 +30,7 @@ class _QuestionPageState extends State<QuestionPage> {
         showTimeOutDialog();
       }
     });
+    _questionBloc.sendPageState(0);
     super.initState();
   }
 
@@ -51,6 +52,17 @@ class _QuestionPageState extends State<QuestionPage> {
             }),
         centerTitle: true,
         actions: <Widget>[
+          Center(
+            child: StreamBuilder(
+              stream: _questionBloc.pageState,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                return Text(
+                  snapshot?.data??"",
+                  style: Theme.of(context).textTheme.title.copyWith(color: Colors.white),
+                );
+              },
+            ),
+          ),
           IconButton(
             icon: Icon(FontAwesomeIcons.paperPlane),
             onPressed: () {
@@ -80,7 +92,9 @@ class _QuestionPageState extends State<QuestionPage> {
                         itemCount: questions.length,
                         controller: _controller,
                         onPageChanged: (index) {
-                          print("The answer at $index is ${questions[index].answers}");
+                          _questionBloc.sendPageState(index);
+                          print(
+                              "The answer at $index is ${questions[index].answers}");
                         },
                         itemBuilder: (context, index) {
                           return Question(question: questions[index]);
