@@ -31,7 +31,7 @@ class LicenseBloc {
     _eventState.sink.add(Event.LOADING);
     final preferrence = await SharedPreferences.getInstance();
     preferrence.setString(PreferrenceKey.LICENSE, _encoder.convert(license.toJson()));
-    _eventState.sink.add(Event.TEST_GENERATOR);
+    _eventState.sink.add(Event.HOME);
   }
 
   void dispose() {
@@ -42,5 +42,5 @@ class LicenseBloc {
 
 enum Event{
     LOADING,
-    TEST_GENERATOR
+    HOME
   }
