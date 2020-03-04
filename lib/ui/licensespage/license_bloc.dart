@@ -1,16 +1,13 @@
-import 'dart:convert';
-
+import 'package:drives_licence/data/localsource/preferrence.dart';
 import 'package:drives_licence/data/service/license_service.dart';
 import 'package:drives_licence/model/zlicense.dart';
-import 'package:drives_licence/ui/global.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LicenseBloc {
   LicenseService lisenseService = GetIt.I<LicenseService>();
-  final _encoder = GetIt.I<JsonEncoder>();
+  Preferrence preferrence = GetIt.I<Preferrence>();
   
   LicenseBloc() {
     getLicenses();
@@ -29,8 +26,7 @@ class LicenseBloc {
 
   void saveSelectedLicense(Zlicense license) async {
     _eventState.sink.add(Event.LOADING);
-    final preferrence = await SharedPreferences.getInstance();
-    preferrence.setString(PreferrenceKey.LICENSE, _encoder.convert(license.toJson()));
+    preferrence.setLicense(license);
     _eventState.sink.add(Event.HOME);
   }
 

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PreviewPage extends StatefulWidget {
-  final List<Zquestion> questions;
-  PreviewPage({Key key, this.questions}) : super(key: key);
+  final PreviewArguments previewArguments;
+  PreviewPage({Key key, this.previewArguments}) : super(key: key);
+
+  List<Zquestion> get questions => previewArguments.questions;
 
   @override
   _PreviewPageState createState() => _PreviewPageState();
@@ -16,7 +18,7 @@ class _PreviewPageState extends State<PreviewPage> {
 
   @override
   void initState() {
-    previewBloc = PreviewBloc(widget.questions);
+    previewBloc = PreviewBloc(widget.previewArguments);
     super.initState();
   }
 
@@ -36,9 +38,7 @@ class _PreviewPageState extends State<PreviewPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(FontAwesomeIcons.share),
-            onPressed: () {
-              
-            },
+            onPressed: () {},
           )
         ],
       ),
@@ -74,4 +74,11 @@ class _PreviewPageState extends State<PreviewPage> {
       ),
     );
   }
+}
+
+class PreviewArguments {
+  final List<Zquestion> questions;
+  final double timeInMinutes;
+
+  PreviewArguments({this.questions, this.timeInMinutes});
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:drives_licence/data/localsource/preferrence.dart';
 import 'package:drives_licence/data/service/question_service.dart';
 import 'package:drives_licence/model/zlicense.dart';
 import 'package:drives_licence/model/zquestion.dart';
@@ -10,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class TestGeneratorBloc {
   QuestionService questionService = GetIt.I<QuestionService>();
-  JsonDecoder _decoder = GetIt.I<JsonDecoder>();
+  Preferrence preferrence = GetIt.I<Preferrence>();
   Zlicense _license;
 
   PublishSubject<List<Zquestion>> _questions = PublishSubject();
@@ -26,9 +27,7 @@ class TestGeneratorBloc {
   }
 
   void generateQuestions() async {
-    final preferrence = await SharedPreferences.getInstance();
-    _license = Zlicense.fromJson(
-        _decoder.convert(await preferrence.get(PreferrenceKey.LICENSE)));
+    _license = await preferrence.license();
     _getQuestions(_license);
   }
 }

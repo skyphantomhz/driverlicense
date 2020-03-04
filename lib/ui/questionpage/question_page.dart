@@ -1,5 +1,6 @@
 import 'package:drives_licence/model/zquestion.dart';
 import 'package:drives_licence/ui/global.dart';
+import 'package:drives_licence/ui/previewpage/preview_page.dart';
 import 'package:drives_licence/ui/questionpage/question/question.dart';
 import 'package:drives_licence/ui/questionpage/question_bloc.dart';
 import 'package:drives_licence/ui/questionpage/viewstate.dart';
@@ -125,7 +126,8 @@ class _QuestionPageState extends State<QuestionPage> {
             onPressed: () {
               Navigator.of(context).pop();
               Navigator.pushReplacementNamed(context, RouteName.PREVIEW,
-                  arguments: widget.questions);
+                  arguments:
+                      PreviewArguments(questions: widget.questions,  timeInMinutes: _questionBloc.timePassed/60));
             },
             child: Text(
               'Nộp bài',
@@ -156,7 +158,9 @@ class _QuestionPageState extends State<QuestionPage> {
             color: Theme.of(context).colorScheme.primary,
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.pushReplacementNamed(context, RouteName.PREVIEW);
+              Navigator.pushReplacementNamed(context, RouteName.PREVIEW,
+                  arguments:
+                      PreviewArguments(questions: widget.questions, timeInMinutes: _questionBloc.timePassed/60));
             },
             child: Text(
               'Nộp bài',

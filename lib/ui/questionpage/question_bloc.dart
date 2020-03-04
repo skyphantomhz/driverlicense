@@ -37,10 +37,12 @@ class QuestionBloc {
 
   Timer _timer;
   bool counting = true;
+  int timePassed; 
 
   void startTimer(int munites) {
     var timeInSeconds = munites * 60;
     const oneSec = const Duration(seconds: 1);
+    timePassed = 0;
     _timer = new Timer.periodic(oneSec, (Timer timer) {
       if (!counting) {
         return;
@@ -53,6 +55,7 @@ class QuestionBloc {
         _time.sink.add(
             "${(timeInSeconds ~/ 60).toString().padLeft(2, '0')}:${(timeInSeconds % 60).toString().padLeft(2, '0')}");
         timeInSeconds = timeInSeconds - 1;
+        ++timePassed;
       }
     });
   }

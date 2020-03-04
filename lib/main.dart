@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
               builder: (ctx) => QuestionPage(questions: settings.arguments));
         } else if (settings?.name == RouteName.PREVIEW) {
           return MaterialPageRoute(
-              builder: (ctx) => PreviewPage(questions: settings.arguments));
+              builder: (ctx) => PreviewPage(previewArguments: settings.arguments));
         }
       },
     );
