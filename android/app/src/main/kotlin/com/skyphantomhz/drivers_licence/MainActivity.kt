@@ -1,4 +1,4 @@
-package com.example.drives_licence
+package com.skyphantomhz.drivers_licence
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
