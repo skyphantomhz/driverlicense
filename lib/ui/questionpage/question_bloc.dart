@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:drives_licence/model/zlicense.dart';
 import 'package:drives_licence/ui/global.dart';
 import 'package:drives_licence/ui/questionpage/viewstate.dart';
+import 'package:drives_licence/util/time_util.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,8 +53,7 @@ class QuestionBloc {
         timer.cancel();
         _viewState.sink.add(EventState(Event.TIME_OUT));
       } else {
-        _time.sink.add(
-            "${(timeInSeconds ~/ 60).toString().padLeft(2, '0')}:${(timeInSeconds % 60).toString().padLeft(2, '0')}");
+        _time.sink.add(convertTimeDuration(timeInSeconds));
         timeInSeconds = timeInSeconds - 1;
         ++timePassed;
       }
