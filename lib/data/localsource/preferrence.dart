@@ -13,9 +13,13 @@ class Preferrence {
   Future<Zlicense> license() async {
     final completer = Completer<Zlicense>();
     final preferrence = await SharedPreferences.getInstance();
-    final _license = Zlicense.fromJson(
-        _decoder.convert(await preferrence.get(PreferrenceKey.LICENSE)));
-    completer.complete(_license);
+    String licenseStr = await preferrence.get(PreferrenceKey.LICENSE);
+    if (licenseStr?.isNotEmpty ?? false) {
+      final _license = Zlicense.fromJson(_decoder.convert(licenseStr));
+      completer.complete(_license);
+    } else {
+      completer.complete(null);
+    }
     return completer.future;
   }
 

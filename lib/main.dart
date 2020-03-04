@@ -3,8 +3,7 @@ import 'package:drives_licence/ui/homepage/home_page.dart';
 import 'package:drives_licence/ui/licensespage/license_page.dart';
 import 'package:drives_licence/ui/previewpage/preview_page.dart';
 import 'package:drives_licence/ui/questionpage/question_page.dart';
-import 'package:drives_licence/ui/splashpage.dart';
-import 'package:drives_licence/ui/testgenerator/test_generator_bloc.dart';
+import 'package:drives_licence/ui/splashscreen/splashpage.dart';
 import 'package:drives_licence/ui/testgenerator/test_generator_page.dart';
 import 'package:flutter/material.dart';
 
