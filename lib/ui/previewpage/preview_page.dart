@@ -170,7 +170,7 @@ class _PreviewPageState extends State<PreviewPage> {
                     return SingleChildScrollView(
                       controller: scrollController,
                       child: Container(
-                        height: 700,
+                        height: 800,
                         color: Colors.white,
                         alignment: Alignment.topCenter,
                         child: Wrap(

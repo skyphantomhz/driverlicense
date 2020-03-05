@@ -1,10 +1,13 @@
 import 'package:drives_licence/ui/global.dart';
 import 'package:drives_licence/ui/homepage/home_bloc.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  final BannerAd bannerAd;
+  HomePage({Key key, this.bannerAd}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -27,6 +30,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (mounted) {
+      widget.bannerAd
+        ..load()
+        ..show();
+    }
     return Scaffold(
       appBar: AppBar(
         title: StreamBuilder<String>(
@@ -52,6 +60,8 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).pushNamed(RouteName.TEST_GENERATOR);
               }),
               _buildItem("Học", FontAwesomeIcons.bookOpen, () {
+                Crashlytics.instance
+                          .recordError(Exception(), null, context: 'as an example');
                 Navigator.of(context).pushNamed(RouteName.TEST_GENERATOR);
               }),
             ]),
