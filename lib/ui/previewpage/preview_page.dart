@@ -1,5 +1,6 @@
 import 'package:drives_licence/model/zquestion.dart';
 import 'package:drives_licence/ui/previewpage/preview_bloc.dart';
+import 'package:drives_licence/ui/questionpage/question/question.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -43,35 +44,149 @@ class _PreviewPageState extends State<PreviewPage> {
         ],
       ),
       body: SafeArea(
-        child: Center(
-          child: StreamBuilder<bool>(
-              stream: previewBloc.pass,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                final pass = snapshot?.data;
-                switch (pass) {
-                  case true:
-                    return Text("Đạt",
-                        style: Theme.of(context)
-                            .textTheme
-                            .display2
-                            .copyWith(color: Colors.green));
-                    break;
-                  case false:
-                    return Text("Không Đạt",
-                        style: Theme.of(context)
-                            .textTheme
-                            .display2
-                            .copyWith(color: Colors.red));
-                    break;
-                  default:
-                    return Container(
-                        width: 50,
-                        height: 50,
-                        child: CircularProgressIndicator());
-                }
-              }),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 100,
+              ),
+              StreamBuilder<bool>(
+                stream: previewBloc.pass,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  final pass = snapshot?.data;
+                  switch (pass) {
+                    case true:
+                      return Text("Đạt",
+                          style: Theme.of(context)
+                              .textTheme
+                              .display2
+                              .copyWith(color: Colors.green));
+                      break;
+                    case false:
+                      return Text("Không Đạt",
+                          style: Theme.of(context)
+                              .textTheme
+                              .display2
+                              .copyWith(color: Colors.red));
+                      break;
+                    default:
+                      return Container(
+                          width: 50,
+                          height: 50,
+                          child: CircularProgressIndicator());
+                  }
+                },
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 6),
+                  itemCount: widget.questions.length,
+                  itemBuilder: (context, index) {
+                    Zquestion question = widget.questions[index];
+                    final icon = question.isCorrect()
+                        ? Icon(
+                            FontAwesomeIcons.solidCheckCircle,
+                            color: Colors.green,
+                          )
+                        : Icon(
+                            FontAwesomeIcons.solidTimesCircle,
+                            color: Colors.red,
+                          );
+                    return InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        _showQuestion(question);
+                      },
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.grey),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              (++index).toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .title
+                                  .copyWith(color: Colors.white),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: icon,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  void _showQuestion(Zquestion question) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.8,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            clipBehavior: Clip.hardEdge,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(10),
+                  topRight: const Radius.circular(10),
+                ),
+              ),
+              child: Container(
+                child: DraggableScrollableSheet(
+                  initialChildSize: 0.5,
+                  minChildSize: 0.5,
+                  builder:
+                      (BuildContext context, ScrollController scrollController) {
+                    return SingleChildScrollView(
+                      controller: scrollController,
+                      child: Container(
+                        height: 700,
+                        color: Colors.white,
+                        alignment: Alignment.topCenter,
+                        child: Wrap(
+                          children: <Widget>[
+                            Question(question: question, enable: false),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

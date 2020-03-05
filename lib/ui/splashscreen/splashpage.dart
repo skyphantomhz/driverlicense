@@ -35,11 +35,11 @@ class SplashPage extends StatelessWidget {
                 _intoApp(context);
               });
               return Container(
-                decoration: BoxDecoration(color: Colors.yellow),
+                decoration: BoxDecoration(color: Theme.of(context).primaryColor),
               );
             } else {
               return Container(
-                decoration: BoxDecoration(color: Colors.yellow),
+                decoration: BoxDecoration(color: Theme.of(context).primaryColor),
                 alignment: Alignment.center,
                 child: Container(
                   width: 50,

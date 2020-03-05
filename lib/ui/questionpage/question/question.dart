@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 
 class Question extends StatefulWidget {
   final Zquestion question;
+  final enable;
 
-  Question({@required this.question}) {
-    question.answerSubmited = Set();
+  Question({@required this.question, this.enable = true}) {
+    if (question.answerSubmited == null) {
+      question.answerSubmited = Set();
+    }
   }
 
   Set<int> get answerSubmitted => question.answerSubmited;
@@ -26,28 +29,50 @@ class _QuestionState extends State<Question> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(8),
-              child: Text(
-                widget.question.questionContent,
-                style: Theme.of(context).textTheme.body2,
-              ),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(8),
+            child: Text(
+              widget.question.questionContent,
+              style: Theme.of(context).textTheme.body2,
             ),
-            buildImageQuestion(widget.question.image),
-            Column(
-              children: _buildOptions(),
-            )
-          ],
-        ),
+          ),
+          buildImageQuestion(widget.question.image),
+          Column(
+            children: _buildOptions()..add(_buildHintView()),
+          ),
+        ],
       ),
     );
+  }
+
+  Widget _buildHintView() {
+    if (widget.enable) {
+      return SizedBox(
+        width: 10,
+      );
+    } else {
+      return Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Container(
+            color: Colors.green[100],
+            padding: EdgeInsets.all(8),
+            child: Text(
+              widget.question.answerDesc,
+              overflow: TextOverflow.clip,
+              style: Theme.of(context)
+                  .textTheme
+                  .body1
+                  .copyWith(color: Colors.white),
+            )),
+      );
+    }
   }
 
   Widget buildImageQuestion(String image) {
@@ -55,7 +80,7 @@ class _QuestionState extends State<Question> {
       return Container();
     } else {
       final fileNameConverted = image.replaceFirst("jpg", "webp");
-      return Expanded(
+      return Container(
         child: Image.asset("assets/imageapp/$fileNameConverted"),
       );
     }
@@ -72,9 +97,24 @@ class _QuestionState extends State<Question> {
     });
   }
 
+  TextStyle answerStatusAt(int indexed) {
+    if (widget.enable) {
+      return Theme.of(context).textTheme.body1;
+    }
+    bool selected = widget.question.answerSubmited.contains(indexed);
+    bool isCorrectAnswer = widget.question.answers.contains("$indexed");
+    if (isCorrectAnswer)
+      return Theme.of(context).textTheme.body1.copyWith(color: Colors.green);
+    else if (selected)
+      return Theme.of(context).textTheme.body1.copyWith(color: Colors.red);
+    else
+      return Theme.of(context).textTheme.body1;
+  }
+
   Widget _buildOption(String option, int indexed) {
     return InkWell(
       onTap: () {
+        if (!widget.enable) return;
         setState(() {
           if (isOptionSelected(indexed)) {
             unselectOption(indexed);
@@ -96,7 +136,7 @@ class _QuestionState extends State<Question> {
         ),
         title: Text(
           option,
-          style: Theme.of(context).textTheme.body1,
+          style: answerStatusAt(indexed),
         ),
       ),
     );

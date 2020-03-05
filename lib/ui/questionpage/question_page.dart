@@ -89,7 +89,8 @@ class _QuestionPageState extends State<QuestionPage> {
                         "The answer at $index is ${widget.questions[index].answers}");
                   },
                   itemBuilder: (context, index) {
-                    return Question(question: widget.questions[index]);
+                    return Card(
+                        child: Question(question: widget.questions[index]));
                   },
                 ),
               ),
@@ -126,8 +127,9 @@ class _QuestionPageState extends State<QuestionPage> {
             onPressed: () {
               Navigator.of(context).pop();
               Navigator.pushReplacementNamed(context, RouteName.PREVIEW,
-                  arguments:
-                      PreviewArguments(questions: widget.questions,  timeInMinutes: _questionBloc.timePassed/60));
+                  arguments: PreviewArguments(
+                      questions: widget.questions,
+                      timeInMinutes: _questionBloc.timePassed / 60));
             },
             child: Text(
               'Nộp bài',
@@ -159,8 +161,9 @@ class _QuestionPageState extends State<QuestionPage> {
             onPressed: () {
               Navigator.of(context).pop();
               Navigator.pushReplacementNamed(context, RouteName.PREVIEW,
-                  arguments:
-                      PreviewArguments(questions: widget.questions, timeInMinutes: _questionBloc.timePassed/60));
+                  arguments: PreviewArguments(
+                      questions: widget.questions,
+                      timeInMinutes: _questionBloc.timePassed / 60));
             },
             child: Text(
               'Nộp bài',
