@@ -51,20 +51,6 @@ class _QuestionPageState extends State<QuestionPage> {
             }),
         centerTitle: true,
         actions: <Widget>[
-          Center(
-            child: StreamBuilder(
-              stream: _questionBloc.pageState,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                return Text(
-                  snapshot?.data ?? "",
-                  style: Theme.of(context)
-                      .textTheme
-                      .title
-                      .copyWith(color: Colors.white),
-                );
-              },
-            ),
-          ),
           IconButton(
             icon: Icon(FontAwesomeIcons.paperPlane),
             onPressed: () {
@@ -74,28 +60,78 @@ class _QuestionPageState extends State<QuestionPage> {
         ],
       ),
       body: SafeArea(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.7,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: PageView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: widget.questions.length,
-                  controller: _controller,
-                  onPageChanged: (index) {
-                    _questionBloc.sendPageState(index);
-                    print(
-                        "The answer at $index is ${widget.questions[index].answers}");
-                  },
-                  itemBuilder: (context, index) {
-                    return Card(
-                        child: Question(question: widget.questions[index]));
-                  },
-                ),
+        child: Column(
+          children: <Widget>[
+            // Container(
+            // height: MediaQuery.of(context).size.height * 0.7,
+            // child:
+            Expanded(
+              child: PageView.builder(
+                physics: BouncingScrollPhysics(),
+                itemCount: widget.questions.length,
+                controller: _controller,
+                onPageChanged: (index) {
+                  _questionBloc.sendPageState(index);
+                  print(
+                      "The answer at $index is ${widget.questions[index].answers}");
+                },
+                itemBuilder: (context, index) {
+                  return Card(
+                      child: Question(question: widget.questions[index]));
+                },
               ),
-            ],
-          ),
+            ),
+
+            Container(
+              color: Theme.of(context).colorScheme.primary,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  IconButton(
+                    color: Colors.white,
+                    onPressed: () {
+                      _controller?.previousPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.bounceIn);
+                    },
+                    icon: Icon(
+                      Icons.chevron_left,
+                      size: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: StreamBuilder(
+                        stream: _questionBloc.pageState,
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          return Text(
+                            snapshot?.data ?? "N/A",
+                            style: Theme.of(context)
+                                .textTheme
+                                .title
+                                .copyWith(color: Colors.white),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    color: Colors.white,
+                    onPressed: () {
+                      _controller?.nextPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.bounceIn);
+                    },
+                    icon: Icon(
+                      Icons.chevron_right,
+                      size: 30,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
