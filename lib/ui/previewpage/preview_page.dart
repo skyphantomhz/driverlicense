@@ -36,12 +36,6 @@ class _PreviewPageState extends State<PreviewPage> {
         leading: BackButton(),
         title: Text("Kết quả"),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(FontAwesomeIcons.share),
-            onPressed: () {},
-          )
-        ],
       ),
       body: SafeArea(
         child: Container(
