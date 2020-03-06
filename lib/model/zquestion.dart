@@ -128,9 +128,12 @@ class Zquestion {
   }
 
   bool isCorrect() {
+    if(answerSubmited == null || answerSubmited.length == 0){
+      return null;
+    }
     answerSubmited?.toList()?.sort((a, b) => a.compareTo(b));
     final answerSubmitedStr = answerSubmit();
-    return answerSubmitedStr != null && answerSubmitedStr == answers;
+    return answerSubmitedStr == answers;
   }
 
   String answerSubmit(){

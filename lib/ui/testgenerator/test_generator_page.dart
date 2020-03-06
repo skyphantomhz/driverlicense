@@ -80,6 +80,7 @@ class _TestGeneratorPageState extends State<TestGeneratorPage> {
                         } else {
                           return ListView.builder(
                               itemCount: data.length,
+                              physics: BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
                                 Zhistory history = data[index];
                                 final leadIcon = history.result == 1

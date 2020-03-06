@@ -84,15 +84,22 @@ class _PreviewPageState extends State<PreviewPage> {
                   itemCount: widget.questions.length,
                   itemBuilder: (context, index) {
                     Zquestion question = widget.questions[index];
-                    final icon = question.isCorrect()
-                        ? Icon(
-                            FontAwesomeIcons.solidCheckCircle,
-                            color: Colors.green,
-                          )
-                        : Icon(
-                            FontAwesomeIcons.solidTimesCircle,
-                            color: Colors.red,
-                          );
+                    var icon = Icon(
+                      FontAwesomeIcons.solidTimesCircle,
+                      color: Colors.red,
+                    );
+                    final isCorrectAnswer = question.isCorrect();
+                    if (isCorrectAnswer == null) {
+                      icon = Icon(
+                        FontAwesomeIcons.exclamationTriangle,
+                        color: Colors.yellow,
+                      );
+                    } else if (isCorrectAnswer) {
+                      icon = Icon(
+                        FontAwesomeIcons.solidCheckCircle,
+                        color: Colors.green,
+                      );
+                    }
                     return InkWell(
                       highlightColor: Colors.transparent,
                       splashColor: Colors.transparent,
@@ -159,8 +166,8 @@ class _PreviewPageState extends State<PreviewPage> {
                 child: DraggableScrollableSheet(
                   initialChildSize: 0.5,
                   minChildSize: 0.5,
-                  builder:
-                      (BuildContext context, ScrollController scrollController) {
+                  builder: (BuildContext context,
+                      ScrollController scrollController) {
                     return SingleChildScrollView(
                       controller: scrollController,
                       child: Container(

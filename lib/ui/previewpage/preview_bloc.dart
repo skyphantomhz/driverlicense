@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:drives_licence/data/localsource/preferrence.dart';
 import 'package:drives_licence/data/service/history_service.dart';
+import 'package:drives_licence/data/service/test_service.dart';
 import 'package:drives_licence/model/zhistory.dart';
 import 'package:drives_licence/model/zlicense.dart';
 import 'package:drives_licence/model/zquestion.dart';
@@ -9,6 +12,7 @@ import 'package:rxdart/rxdart.dart';
 
 class PreviewBloc {
   HistoryService historyService = GetIt.I<HistoryService>();
+  TestService testService = GetIt.I<TestService>();
   Preferrence preferrence = GetIt.I<Preferrence>();
 
   PublishSubject<String> _correctAnswers = PublishSubject<String>();
@@ -24,22 +28,23 @@ class PreviewBloc {
   }
 
   void _initAsync(PreviewArguments previewArguments) async {
-    final correctAnswer = _calculateCorrectAnswers(previewArguments.questions);
     _license = await preferrence.license();
+    final correctAnswer = _calculateCorrectAnswers(previewArguments.questions);
     _saveTestHistory(correctAnswer, previewArguments.timeInMinutes);
+    testService.insertTest(previewArguments.questions, Random().nextInt(100), (previewArguments.timeInMinutes*60).toInt());
   }
 
   int _calculateCorrectAnswers(List<Zquestion> questions) {
     var correctAnswers = 0;
     questions?.forEach((item) {
-      if (item.isCorrect()) {
+      if (item.isCorrect() == true) {
         ++correctAnswers;
       }
     });
     Future.delayed(Duration(milliseconds: 1000), () {
       final message = "Your correct answers: $correctAnswers/20";
       _correctAnswers.sink.add(message);
-      _pass.sink.add(correctAnswers > 15);
+      _pass.sink.add(correctAnswers >= _license.numberOfCorrectQuestion);
     });
     return correctAnswers;
   }
