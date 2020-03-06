@@ -33,7 +33,7 @@ class _TestGeneratorPageState extends State<TestGeneratorPage> {
     testGeneratorBloc.getHistories();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Làm bài kiểm tra ngẫu nhiên"),
+        title: Text("Thi Sát Hạch"),
         leading: BackButton(),
       ),
       body: SafeArea(
@@ -52,7 +52,7 @@ class _TestGeneratorPageState extends State<TestGeneratorPage> {
                   color: Colors.white,
                 ),
                 label: Text(
-                  "Làm bài kiểm tra",
+                  "LÀM BÀI",
                   style: Theme.of(context).textTheme.button,
                 ),
               ),
@@ -65,7 +65,7 @@ class _TestGeneratorPageState extends State<TestGeneratorPage> {
                   Container(
                       margin: EdgeInsets.only(left: 20),
                       child: Text(
-                        "Lịch sử thi:",
+                        "Lịch sử:",
                         style: Theme.of(context).textTheme.title,
                       )),
                   Expanded(

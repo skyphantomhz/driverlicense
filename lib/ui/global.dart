@@ -7,6 +7,7 @@ class RouteName{
   static final TEST_GENERATOR = "/test_generator";
   static final QUESTIONS = "/questions";
   static final PREVIEW = "/preview";
+  static final LEARN = "/learn";
 }
 
 class PreferrenceKey{

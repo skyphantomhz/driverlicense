@@ -56,13 +56,11 @@ class _HomePageState extends State<HomePage> {
                         ? 2
                         : 3),
             children: <Widget>[
-              _buildItem("Thi Thử", FontAwesomeIcons.penFancy, () {
+              _buildItem("Thi Sát Hạch", FontAwesomeIcons.penFancy, () {
                 Navigator.of(context).pushNamed(RouteName.TEST_GENERATOR);
               }),
-              _buildItem("Học", FontAwesomeIcons.bookOpen, () {
-                Crashlytics.instance
-                          .recordError(Exception(), null, context: 'as an example');
-                Navigator.of(context).pushNamed(RouteName.TEST_GENERATOR);
+              _buildItem("Học Lý Thuyết", FontAwesomeIcons.bookOpen, () {
+                Navigator.of(context).pushNamed(RouteName.LEARN);
               }),
             ]),
       ),
