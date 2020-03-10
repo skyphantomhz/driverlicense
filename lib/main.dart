@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:drives_licence/ui/global.dart';
 import 'package:drives_licence/ui/homepage/home_page.dart';
 import 'package:drives_licence/ui/learnpage/learn_page.dart';
+import 'package:drives_licence/ui/learnpage/tippage/tip_page.dart';
 import 'package:drives_licence/ui/licensespage/license_page.dart';
 import 'package:drives_licence/ui/previewpage/preview_page.dart';
 import 'package:drives_licence/ui/questionpage/question_page.dart';
@@ -86,6 +87,7 @@ class _MyAppState extends State<MyApp> {
         RouteName.LICENSES: (context) => LicensesPage(),
         RouteName.TEST_GENERATOR: (context) => TestGeneratorPage(),
         RouteName.LEARN: (context) => LearnPage(),
+        RouteName.TIP: (context) => TipPage(),
         RouteName.HOME: (context) => HomePage(
               bannerAd: _bannerAd,
             ),

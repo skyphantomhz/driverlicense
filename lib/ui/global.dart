@@ -8,6 +8,7 @@ class RouteName{
   static final QUESTIONS = "/questions";
   static final PREVIEW = "/preview";
   static final LEARN = "/learn";
+  static final TIP = "/tips";
 }
 
 class PreferrenceKey{

@@ -1,6 +1,8 @@
 import 'package:drives_licence/ui/learnpage/learn_bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../global.dart';
+
 class LearnPage extends StatefulWidget {
   LearnPage({Key key}) : super(key: key);
 
@@ -33,7 +35,11 @@ class _LearnPageState extends State<LearnPage> {
       body: SafeArea(
         child: Column(children: <Widget>[
           Card(
-            child: ListTile(title: Text("Mẹo thi"),)
+            child: InkWell(
+              onTap: (){
+                Navigator.of(context).pushNamed(RouteName.TIP);
+              },
+              child: ListTile(title: Text("Mẹo thi"),))
           ),
           Card(
             child: ListTile(title: Text("Những câu hỏi hay sai"),)
