@@ -1,8 +1,8 @@
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:drives_licence/model/ztiptype.dart';
 import 'package:drives_licence/ui/learnpage/tippage/tip/tip.dart';
 import 'package:drives_licence/ui/learnpage/tippage/tip_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TipPage extends StatefulWidget {
   TipPage({Key key}) : super(key: key);
@@ -16,14 +16,8 @@ class _TipPageState extends State<TipPage> {
 
   @override
   void initState() {
-    _tipBloc = TipBloc();
+    _tipBloc = BlocProvider.of<TipBloc>(context);
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _tipBloc.dispose();
-    super.dispose();
   }
 
   @override
@@ -34,15 +28,16 @@ class _TipPageState extends State<TipPage> {
         final data = snapshot?.data;
         if (data == null) {
           return Container(
-            color: Colors.purple,
           );
         } else {
-          List<Widget> _tabPages = data.map((type) => TipView(
-                category: _tipBloc.getTipCategory(type.pk),
-              )).toList();
-          List<Tab> _tabs = data.map((type) => Tab(
-                text: type.name,
-              )).toList();
+          List<Widget> _tabPages = List();
+          _tabPages.add(TipView(key: Key("theory")));
+          _tabPages.add(TipView(key: Key("practice")));
+          List<Tab> _tabs = data
+              .map((type) => Tab(
+                    text: type.name,
+                  ))
+              .toList();
           return DefaultTabController(
             length: data.length,
             child: Scaffold(

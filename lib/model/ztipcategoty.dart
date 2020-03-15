@@ -5,6 +5,7 @@ class ZtipCategory {
   int tipType;
   int index;
   String name;
+  bool isExpand = false;
 
   ZtipCategory(
       {this.pk, this.ent, this.opt, this.tipType, this.index, this.name});
