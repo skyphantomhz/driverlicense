@@ -41,12 +41,12 @@ class _LearnPageState extends State<LearnPage> {
               },
               child: ListTile(title: Text("Mẹo thi"),))
           ),
-          Card(
-            child: ListTile(title: Text("Những câu hỏi hay sai"),)
-          ),
-          Card(
-            child: ListTile(title: Text("Những câu hỏi chưa bao giờ trả lời"),)
-          ),
+          // Card(
+          //   child: ListTile(title: Text("Những câu hỏi hay sai"),)
+          // ),
+          // Card(
+          //   child: ListTile(title: Text("Những câu hỏi chưa bao giờ trả lời"),)
+          // ),
         ],),
       ),
     );

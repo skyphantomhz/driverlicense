@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:drives_licence/ui/global.dart';
 import 'package:drives_licence/ui/homepage/home_page.dart';
 import 'package:drives_licence/ui/learnpage/learn_page.dart';
-import 'package:drives_licence/ui/learnpage/tippage/tip_page.dart';
 import 'package:drives_licence/ui/learnpage/tippage/tip_provider.dart';
 import 'package:drives_licence/ui/licensespage/license_page.dart';
 import 'package:drives_licence/ui/previewpage/preview_page.dart';
