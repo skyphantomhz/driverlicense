@@ -8,6 +8,7 @@ import 'package:drives_licence/ui/learnpage/tippage/tip_provider.dart';
 import 'package:drives_licence/ui/licensespage/license_page.dart';
 import 'package:drives_licence/ui/previewpage/preview_page.dart';
 import 'package:drives_licence/ui/questionpage/question_page.dart';
+import 'package:drives_licence/ui/signpage/sign_page.dart';
 import 'package:drives_licence/ui/splashscreen/splashpage.dart';
 import 'package:drives_licence/ui/testgenerator/test_generator_page.dart';
 import 'package:firebase_admob/firebase_admob.dart';
@@ -88,6 +89,7 @@ class _MyAppState extends State<MyApp> {
         RouteName.TEST_GENERATOR: (context) => TestGeneratorPage(),
         RouteName.LEARN: (context) => LearnPage(),
         RouteName.TIP: (context) => TipProvider(),
+        RouteName.SIGN: (context) => SignPage(),
         RouteName.HOME: (context) => HomePage(
               bannerAd: _bannerAd,
             ),

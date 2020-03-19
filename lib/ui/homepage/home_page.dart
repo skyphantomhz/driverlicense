@@ -1,7 +1,6 @@
 import 'package:drives_licence/ui/global.dart';
 import 'package:drives_licence/ui/homepage/home_bloc.dart';
 import 'package:firebase_admob/firebase_admob.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -61,6 +60,9 @@ class _HomePageState extends State<HomePage> {
               }),
               _buildItem("Học Lý Thuyết", FontAwesomeIcons.bookOpen, () {
                 Navigator.of(context).pushNamed(RouteName.LEARN);
+              }),
+              _buildItem("Biển Báo Đường Bộ", FontAwesomeIcons.bookOpen, () {
+                Navigator.of(context).pushNamed(RouteName.SIGN);
               }),
             ]),
       ),
