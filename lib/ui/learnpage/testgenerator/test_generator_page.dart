@@ -1,6 +1,6 @@
 import 'package:drives_licence/model/zhistory.dart';
 import 'package:drives_licence/ui/global.dart';
-import 'package:drives_licence/ui/testgenerator/test_generator_bloc.dart';
+import 'package:drives_licence/ui/learnpage/testgenerator/test_generator_bloc.dart';
 import 'package:drives_licence/util/time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

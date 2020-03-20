@@ -10,6 +10,7 @@ class RouteName{
   static final LEARN = "/learn";
   static final TIP = "/tips";
   static final SIGN = "/sign";
+  static final TAPLO = "/taplo";
 }
 
 class PreferrenceKey{

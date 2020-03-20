@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
               _buildItem("Học Lý Thuyết", FontAwesomeIcons.bookOpen, () {
                 Navigator.of(context).pushNamed(RouteName.LEARN);
               }),
-              _buildItem("Biển Báo Đường Bộ", FontAwesomeIcons.bookOpen, () {
+              _buildItem("Biển Báo Đường Bộ", FontAwesomeIcons.directions, () {
                 Navigator.of(context).pushNamed(RouteName.SIGN);
               }),
             ]),
@@ -77,7 +77,6 @@ class _HomePageState extends State<HomePage> {
         elevation: 4,
         clipBehavior: Clip.antiAlias,
         child: Container(
-          padding: EdgeInsets.all(8),
           decoration: BoxDecoration(color: Colors.blue),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -91,11 +90,15 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Text(title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .title
-                        .copyWith(color: Colors.white))
+                Container(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: Text(title,
+                  textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .title
+                          .copyWith(color: Colors.white)),
+                )
               ]),
         ),
       ),

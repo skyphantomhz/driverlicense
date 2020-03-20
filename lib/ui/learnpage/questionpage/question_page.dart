@@ -1,9 +1,9 @@
 import 'package:drives_licence/model/zquestion.dart';
 import 'package:drives_licence/ui/global.dart';
 import 'package:drives_licence/ui/previewpage/preview_page.dart';
-import 'package:drives_licence/ui/questionpage/question/question.dart';
-import 'package:drives_licence/ui/questionpage/question_bloc.dart';
-import 'package:drives_licence/ui/questionpage/viewstate.dart';
+import 'package:drives_licence/ui/learnpage/questionpage/question/question.dart';
+import 'package:drives_licence/ui/learnpage/questionpage/question_bloc.dart';
+import 'package:drives_licence/ui/learnpage/questionpage/viewstate.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
