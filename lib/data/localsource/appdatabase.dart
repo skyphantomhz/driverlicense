@@ -33,5 +33,5 @@ Future<Database> getDatabase() async {
   } else {
     print("Opening existing database");
   }
-  return openDatabase(path, readOnly: true);
+  return openDatabase(path);
 }

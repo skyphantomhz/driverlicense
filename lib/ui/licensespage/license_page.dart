@@ -15,6 +15,7 @@ class _LicensesPageState extends State<LicensesPage> {
   @override
   void initState() {
     _licenseBloc = LicenseBloc();
+    setListener();
     super.initState();
   }
 
@@ -42,7 +43,7 @@ class _LicensesPageState extends State<LicensesPage> {
                   ),
                   child: InkWell(
                     onTap: () {
-                      navigateToQuestionPage(item.name);
+                      _licenseBloc.saveSelectedLicense(item);
                     },
                     child: ListTile(
                         leading: Container(
@@ -63,13 +64,17 @@ class _LicensesPageState extends State<LicensesPage> {
     );
   }
 
-  void navigateToQuestionPage(String licenseName) {
-    Navigator.pushNamed(context, RouteName.QUESTIONS, arguments: licenseName);
-  }
-
   @override
   void dispose() {
     _licenseBloc.dispose();
     super.dispose();
+  }
+
+  void setListener() {
+    _licenseBloc.eventState.listen((data) {
+      if (data == Event.HOME) {
+        Navigator.of(context).pushNamedAndRemoveUntil(RouteName.HOME,  ModalRoute.withName(RouteName.ROOT));
+      }
+    });
   }
 }

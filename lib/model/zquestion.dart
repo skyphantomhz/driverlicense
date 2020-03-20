@@ -24,6 +24,7 @@ class Zquestion {
   String option3;
   String option4;
   String questionContent;
+  Set<int> answerSubmited;
 
   Zquestion(
       {this.pk,
@@ -108,5 +109,34 @@ class Zquestion {
     data['ZOPTION4'] = this.option4;
     data['ZQUESTIONCONTENT'] = this.questionContent;
     return data;
+  }
+
+  String getOption(int index) {
+    switch (index) {
+      case 0:
+        return option1;
+        break;
+      case 1:
+        return option2;
+        break;
+      case 2:
+        return option3;
+        break;
+      default:
+        return option4;
+    }
+  }
+
+  bool isCorrect() {
+    if(answerSubmited == null || answerSubmited.length == 0){
+      return null;
+    }
+    answerSubmited?.toList()?.sort((a, b) => a.compareTo(b));
+    final answerSubmitedStr = answerSubmit();
+    return answerSubmitedStr == answers;
+  }
+
+  String answerSubmit(){
+    return answerSubmited?.map((answer) => answer.toString())?.join(',');
   }
 }

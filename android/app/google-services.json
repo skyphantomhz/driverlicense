@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "732143962264",
+    "firebase_url": "https://driver-s-license.firebaseio.com",
+    "project_id": "driver-s-license",
+    "storage_bucket": "driver-s-license.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732143962264:android:b71b4bf53456eae08028ed",
+        "android_client_info": {
+          "package_name": "com.skyphantomhz.drivers_licence"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "732143962264-i0a3rt54jlem6nmluj5g5d5htu7rf5gr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJTubWWls6UkUlQOPkmY_oxCym52uS4uY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "732143962264-i0a3rt54jlem6nmluj5g5d5htu7rf5gr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
