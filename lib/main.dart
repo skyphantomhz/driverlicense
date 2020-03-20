@@ -11,6 +11,7 @@ import 'package:drives_licence/ui/previewpage/preview_page.dart';
 import 'package:drives_licence/ui/signpage/sign_page.dart';
 import 'package:drives_licence/ui/splashscreen/splashpage.dart';
 import 'package:drives_licence/ui/learnpage/testgenerator/test_generator_page.dart';
+import 'package:drives_licence/ui/taplopage/taplo_page.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -90,6 +91,7 @@ class _MyAppState extends State<MyApp> {
         RouteName.LEARN: (context) => LearnPage(),
         RouteName.TIP: (context) => TipProvider(),
         RouteName.SIGN: (context) => SignPage(),
+        RouteName.TAPLO: (context) => TaploPage(),
         RouteName.HOME: (context) => HomePage(
               bannerAd: _bannerAd,
             ),

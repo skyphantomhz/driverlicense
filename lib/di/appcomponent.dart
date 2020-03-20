@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:drives_licence/data/localsource/appdatabase.dart';
 import 'package:drives_licence/data/localsource/dao/historydao.dart';
 import 'package:drives_licence/data/localsource/dao/licensedao.dart';
+import 'package:drives_licence/data/localsource/dao/lightinfodao.dart';
 import 'package:drives_licence/data/localsource/dao/questiondao.dart';
 import 'package:drives_licence/data/localsource/dao/signdao.dart';
 import 'package:drives_licence/data/localsource/dao/testdao.dart';
@@ -11,6 +12,7 @@ import 'package:drives_licence/data/localsource/dao/tipdao.dart';
 import 'package:drives_licence/data/localsource/preferrence.dart';
 import 'package:drives_licence/data/service/history_service.dart';
 import 'package:drives_licence/data/service/license_service.dart';
+import 'package:drives_licence/data/service/light_info_service.dart';
 import 'package:drives_licence/data/service/question_service.dart';
 import 'package:drives_licence/data/service/sign_service.dart';
 import 'package:drives_licence/data/service/test_service.dart';
@@ -32,6 +34,7 @@ void setupLocator() {
   getIt.registerLazySingleton<TestQuestDao>(() => TestQuestDao());
   getIt.registerLazySingleton<TipDao>(() => TipDao());
   getIt.registerLazySingleton<SignDao>(() => SignDao());
+  getIt.registerLazySingleton<LightInfoDao>(() => LightInfoDao());
 
   getIt.registerLazySingleton<LicenseService>(() => LicenseService());
   getIt.registerLazySingleton<QuestionService>(() => QuestionService());
@@ -39,4 +42,5 @@ void setupLocator() {
   getIt.registerLazySingleton<TestService>(() => TestService());
   getIt.registerLazySingleton<TipService>(() => TipService());
   getIt.registerLazySingleton<SignService>(() => SignService());
+  getIt.registerLazySingleton<LightInfoService>(() => LightInfoService());
 }

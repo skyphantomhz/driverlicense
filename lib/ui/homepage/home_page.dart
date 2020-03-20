@@ -64,6 +64,9 @@ class _HomePageState extends State<HomePage> {
               _buildItem("Biển Báo Đường Bộ", FontAwesomeIcons.directions, () {
                 Navigator.of(context).pushNamed(RouteName.SIGN);
               }),
+              _buildItem("Đèn Hiệu Taplo", FontAwesomeIcons.info, () {
+                Navigator.of(context).pushNamed(RouteName.TAPLO);
+              }),
             ]),
       ),
     );
